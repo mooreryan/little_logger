@@ -16,6 +16,7 @@
  (bug_reports "https://github.com/mooreryan/little_logger/issues")
  (synopsis "A tiny, little logger <3")
  (depends
+  (async :dev)
   (bisect_ppx :dev)
   (core (>= "0.12"))
   (core_bench (and (>= "0.12") :dev))
@@ -23,8 +24,8 @@
   (dolog :dev)
   (ocaml (>= "4.08.0"))
   ppx_compare
-  (ppx_inline_test :test)
-  (ppx_expect :test)
-  (ppx_sexp_conv :test)
-  (ppx_jane :test)
-  (re2 :test)))
+  (ppx_inline_test :dev)
+  (ppx_expect :dev)
+  (ppx_sexp_conv :dev)
+  (ppx_jane :dev)
+  (re2 :dev)))
