@@ -14,6 +14,8 @@ let () = Logger.error (fun () -> sprintf "something %s happened" "bad")
 (* E, [2021-08-17 17:23:32 #102259] ERROR -- something bad happened *)
 ```
 
+For more info, see the [docs](https://mooreryan.github.io/little_logger/).
+
 ## Documentation
 
 The api docs and examples are available on [online](https://mooreryan.github.io/little_logger/).
@@ -22,7 +24,7 @@ It's quite simple though (< 100 LOC), so check out the source to see exactly how
 
 ## Benchmarks
 
-For some snazzy fun, head on over to the [benchmark directory](https://github.com/mooreryan/little_logger/bench) 🌶
+For some snazzy fun, head on over to the [benchmark directory](https://github.com/mooreryan/little_logger/tree/main/bench) 🌶
 
 ## License
 
@@ -32,3 +34,12 @@ For some snazzy fun, head on over to the [benchmark directory](https://github.co
 Licensed under the Apache License, Version 2.0 or the MIT license, at
 your option. This program may not be copied, modified, or distributed
 except according to those terms.
+
+## See also
+
+Here are some other lovely OCaml logging libraries that you may be interested in:
+
+* [logs](https://opam.ocaml.org/packages/logs/)
+* [easy_logging](https://opam.ocaml.org/packages/easy_logging/)
+* [dolog](https://opam.ocaml.org/packages/dolog/)
+* And others on [Opam](https://opam.ocaml.org/packages/)

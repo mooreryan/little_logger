@@ -4,6 +4,10 @@
 
 ## Normal logging
 
+* `logger` is this package
+* `el` is the `easy_logging` package
+* `dolog` is the `dolog` package
+
 Here is the command I ran for the benchmarks.
 
 ```
