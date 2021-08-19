@@ -12,8 +12,8 @@ depends: [
   "dune" {>= "2.8"}
   "async" {dev}
   "bisect_ppx" {dev}
-  "core" {>= "0.12"}
-  "core_bench" {>= "0.12" & dev}
+  "core" {>= "v0.12"}
+  "core_bench" {>= "v0.12" & dev}
   "easy_logging" {dev}
   "dolog" {dev}
   "ocaml" {>= "4.08.0"}

@@ -18,8 +18,8 @@
  (depends
   (async :dev)
   (bisect_ppx :dev)
-  (core (>= "0.12"))
-  (core_bench (and (>= "0.12") :dev))
+  (core (>= "v0.12"))
+  (core_bench (and (>= "v0.12") :dev))
   (easy_logging :dev)
   (dolog :dev)
   (ocaml (>= "4.08.0"))
