@@ -6,7 +6,7 @@
 
 (package
  (name little_logger)
- (version 0.1.0)
+ (version 0.1.1)
  (license "MIT")
  (maintainers "Ryan Moore")
  (authors "Ryan Moore")
