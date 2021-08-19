@@ -10,19 +10,19 @@ doc: "https://mooreryan.github.io/little_logger/"
 bug-reports: "https://github.com/mooreryan/little_logger/issues"
 depends: [
   "dune" {>= "2.8"}
-  "async" {dev}
-  "bisect_ppx" {dev}
+  "async" {with-test}
+  "bisect_ppx" {with-test}
   "core" {>= "v0.12"}
   "core_bench" {>= "v0.12" & dev}
   "easy_logging" {dev}
   "dolog" {dev}
   "ocaml" {>= "4.08.0"}
   "ppx_compare"
-  "ppx_inline_test" {dev}
-  "ppx_expect" {dev}
-  "ppx_sexp_conv" {dev}
-  "ppx_jane" {dev}
-  "re2" {dev}
+  "ppx_inline_test" {with-test}
+  "ppx_expect" {with-test}
+  "ppx_sexp_conv" {with-test}
+  "ppx_jane" {with-test}
+  "re2" {with-test}
   "odoc" {with-doc}
 ]
 build: [
