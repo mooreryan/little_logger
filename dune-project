@@ -6,7 +6,7 @@
 
 (package
  (name little_logger)
- (version 0.1.1)
+ (version 0.2.0)
  (license "MIT")
  (maintainers "Ryan Moore")
  (authors "Ryan Moore")
@@ -16,16 +16,19 @@
  (bug_reports "https://github.com/mooreryan/little_logger/issues")
  (synopsis "A tiny, little logger <3")
  (depends
+  ;; Runtime deps
+  (ocaml (>= "4.08.0"))
+   ptime
+  ;; Test deps
   (async :with-test)
   (bisect_ppx :with-test)
-  (core (>= "v0.12"))
-  (core_bench (and (>= "v0.12") :dev))
-  (easy_logging :dev)
-  (dolog :dev)
-  (ocaml (>= "4.08.0"))
-  ppx_compare
+  (core (and (>= "v0.12") :with-test))
   (ppx_inline_test :with-test)
   (ppx_expect :with-test)
   (ppx_sexp_conv :with-test)
   (ppx_jane :with-test)
-  (re2 :with-test)))
+  (re2 :with-test)
+  ;; Dev deps
+  (core_bench (and (>= "v0.12") :dev))
+  (easy_logging :dev)
+  (dolog :dev)))

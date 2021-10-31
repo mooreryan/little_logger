@@ -34,8 +34,8 @@ let log_all_string () =
 
 let%expect_test "level_of_string" =
   let f s =
-    Logger.Level.of_string s |> Or_error.ok_exn |> Logger.Level.to_string
-    |> print_endline
+    print_endline @@ Logger.Level.to_string
+    @@ Option.value_exn (Logger.Level.of_string s)
   in
   f "tRaCe";
   [%expect {| TRACE |}];
@@ -55,11 +55,10 @@ let%expect_test "level_of_string" =
   [%expect {| SILENT |}];
   let () =
     match Logger.Level.of_string "bad thing" with
-    | Ok _ -> assert false
-    | Error err -> print_endline @@ Error.to_string_hum err
+    | Some _ -> assert false
+    | None -> print_endline "Got None"
   in
-  [%expect
-    {| Level must be one of trace, debug, info, warning, error, fatal, unknown, silent.  Got 'bad thing'. |}]
+  [%expect {| Got None |}]
 
 (* Check that the getter/setters work. *)
 

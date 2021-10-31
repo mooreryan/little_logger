@@ -112,8 +112,6 @@
 
 (** {1 API} *)
 
-open! Core
-
 (** {2 Level} *)
 
 module Level : sig
@@ -140,7 +138,7 @@ module Level : sig
       < Debug < Info < Warning < Error < Fatal < Unknown < Silent]) *)
   type t = Trace | Debug | Info | Warning | Error | Fatal | Unknown | Silent
 
-  val of_string : string -> t Or_error.t
+  val of_string : string -> t option
   (** [of_string level] attempts to create a [t] from its case-insensitive
       string representation (e.g., for creating from command line arguments). *)
 

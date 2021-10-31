@@ -1,9 +1,8 @@
 (library
  (name little_logger)
  (public_name little_logger)
- (libraries core)
+ (libraries ptime ptime.clock.os)
  (instrumentation
-  (backend bisect_ppx))
- (preprocess (pps ppx_compare)))
+  (backend bisect_ppx)))
 
 (documentation)

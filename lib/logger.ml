@@ -1,29 +1,19 @@
-open! Core
-
 module Level = struct
   (* Lowest to highest severity. Silent isn't really a level, but a nice way to
      print absolutely no messages. *)
   type t = Trace | Debug | Info | Warning | Error | Fatal | Unknown | Silent
-  [@@deriving compare, equal]
-
-  let ( >= ) a b = match compare a b with 1 | 0 -> true | _ -> false
 
   let of_string s =
-    let open Or_error in
-    match String.lowercase s with
-    | "silent" -> return Silent
-    | "unknown" -> return Unknown
-    | "fatal" -> return Fatal
-    | "error" -> return Error
-    | "warning" -> return Warning
-    | "info" -> return Info
-    | "debug" -> return Debug
-    | "trace" -> return Trace
-    | _ ->
-        errorf
-          "Level must be one of trace, debug, info, warning, error, fatal, \
-           unknown, silent.  Got '%s'."
-          s
+    match String.lowercase_ascii s with
+    | "silent" -> Some Silent
+    | "unknown" -> Some Unknown
+    | "fatal" -> Some Fatal
+    | "error" -> Some Error
+    | "warning" -> Some Warning
+    | "info" -> Some Info
+    | "debug" -> Some Debug
+    | "trace" -> Some Trace
+    | _ -> None
 
   let to_string = function
     | Silent -> "SILENT"
@@ -46,8 +36,6 @@ module Level = struct
     | Trace -> 'T'
 end
 
-(* type t = { log_level : Level.t; printer : string -> unit } *)
-
 let log_level = ref Level.Warning
 let printer = ref prerr_endline
 
@@ -61,14 +49,17 @@ type message = unit -> string
 
 let make_log_message msg_level msg =
   let now =
-    Unix.strftime (Unix.localtime @@ Unix.time ()) "%Y-%m-%d %H:%M:%S"
+    let ptime = Ptime_clock.now () in
+    let tz_offset_s = Ptime_clock.current_tz_offset_s () in
+    Time_convert.to_string_hum tz_offset_s ptime
   in
-  let pid = Pid.to_string @@ Unix.getpid () in
+  let pid = string_of_int @@ Unix.getpid () in
   let code = Level.to_char msg_level in
-  sprintf "%c, [%s #%s] %s -- %s" code now pid (Level.to_string msg_level) msg
+  Printf.sprintf "%c, [%s #%s] %s -- %s" code now pid
+    (Level.to_string msg_level)
+    msg
 
-let should_log msg_level logger_threshold =
-  Level.(msg_level >= logger_threshold)
+let should_log msg_level logger_threshold = msg_level >= logger_threshold
 
 let log_message msg_level msg =
   if should_log msg_level !log_level then
