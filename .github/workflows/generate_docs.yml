@@ -23,7 +23,7 @@ jobs:
           dune-cache: true
           cache-prefix: v1-ubuntu-latest
 
-      - run: opam install . --deps-only --with-doc
+      - run: opam install . --deps-only --with-doc --with-test
 
       - run: make docs_site
       - run: git checkout gh-pages
