@@ -16,8 +16,7 @@ docs_site:
 	if [ -d $(DOCS_D) ]; then rm -rf $(DOCS_D); fi
 	dune build @doc && \
 	  mv _build/default/_doc/_html docs && \
-	  chmod 755 $(DOCS_D) && \
-	  $(BROWSER) ./$(DOCS_D)/index.html
+	  chmod 755 $(DOCS_D)
 
 .PHONY: test
 test:

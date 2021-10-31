@@ -25,7 +25,9 @@ jobs:
 
       - run: opam install . --deps-only --with-doc --with-test
 
-      - run: make docs_site
+      - run: opam exec -- make build
+      - run: opam exec -- make docs_site
+
       - run: git checkout gh-pages
       - run: if [ -d docs ]; then rm -r docs; fi
       - run: mv _docs docs
