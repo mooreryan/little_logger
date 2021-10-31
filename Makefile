@@ -15,7 +15,7 @@ docs_open: docs
 docs_site:
 	if [ -d $(DOCS_D) ]; then rm -rf $(DOCS_D); fi
 	dune build @doc && \
-	  mv _build/default/_doc/_html docs && \
+	  mv _build/default/_doc/_html $(DOCS_D) && \
 	  chmod 755 $(DOCS_D)
 
 .PHONY: test
