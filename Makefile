@@ -1,6 +1,6 @@
 BROWSER = firefox
 NAME=little_logger
-DOCS_D = docs
+DOCS_D = _docs
 TEST_COV_D = /tmp/little_logger
 
 .PHONY: docs
