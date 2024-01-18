@@ -22,10 +22,6 @@ The api docs and examples are available on [online](https://mooreryan.github.io/
 
 It's quite simple though (< 100 LOC), so check out the source to see exactly how things work 🍨
 
-## Benchmarks
-
-For some snazzy fun, head on over to the [benchmark directory](https://github.com/mooreryan/little_logger/tree/main/bench) 🌶
-
 ## License
 
 [![license MIT or Apache
@@ -42,4 +38,3 @@ Here are some other lovely OCaml logging libraries that you may be interested in
 * [logs](https://opam.ocaml.org/packages/logs/)
 * [easy_logging](https://opam.ocaml.org/packages/easy_logging/)
 * [dolog](https://opam.ocaml.org/packages/dolog/)
-* And others on [Opam](https://opam.ocaml.org/packages/)
