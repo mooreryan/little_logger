@@ -16,10 +16,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use OCaml 4.12.0
+      - name: Use OCaml 4.14.1
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.12.0
+          ocaml-compiler: 4.14.1
           dune-cache: true
           cache-prefix: v1-ubuntu-latest
 
