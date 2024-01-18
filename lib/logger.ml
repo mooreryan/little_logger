@@ -5,35 +5,60 @@ module Level = struct
 
   let of_string s =
     match String.lowercase_ascii s with
-    | "silent" -> Some Silent
-    | "unknown" -> Some Unknown
-    | "fatal" -> Some Fatal
-    | "error" -> Some Error
-    | "warning" -> Some Warning
-    | "info" -> Some Info
-    | "debug" -> Some Debug
-    | "trace" -> Some Trace
-    | _ -> None
+    | "silent" ->
+        Some Silent
+    | "unknown" ->
+        Some Unknown
+    | "fatal" ->
+        Some Fatal
+    | "error" ->
+        Some Error
+    | "warning" ->
+        Some Warning
+    | "info" ->
+        Some Info
+    | "debug" ->
+        Some Debug
+    | "trace" ->
+        Some Trace
+    | _ ->
+        None
 
   let to_string = function
-    | Silent -> "SILENT"
-    | Unknown -> "UNKNOWN"
-    | Fatal -> "FATAL"
-    | Error -> "ERROR"
-    | Warning -> "WARN"
-    | Info -> "INFO"
-    | Debug -> "DEBUG"
-    | Trace -> "TRACE"
+    | Silent ->
+        "SILENT"
+    | Unknown ->
+        "UNKNOWN"
+    | Fatal ->
+        "FATAL"
+    | Error ->
+        "ERROR"
+    | Warning ->
+        "WARN"
+    | Info ->
+        "INFO"
+    | Debug ->
+        "DEBUG"
+    | Trace ->
+        "TRACE"
 
   let to_char = function
-    | Silent -> 'S'
-    | Unknown -> 'U'
-    | Fatal -> 'F'
-    | Error -> 'E'
-    | Warning -> 'W'
-    | Info -> 'I'
-    | Debug -> 'D'
-    | Trace -> 'T'
+    | Silent ->
+        'S'
+    | Unknown ->
+        'U'
+    | Fatal ->
+        'F'
+    | Error ->
+        'E'
+    | Warning ->
+        'W'
+    | Info ->
+        'I'
+    | Debug ->
+        'D'
+    | Trace ->
+        'T'
 end
 
 let log_level = ref Level.Warning

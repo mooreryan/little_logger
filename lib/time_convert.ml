@@ -28,8 +28,10 @@ let rfc3339_adjust_tz_offset tz_offset_s =
 let to_string_hum tz_offset_s ptime =
   let tz_offset_s, _tz_unknown =
     match tz_offset_s with
-    | Some tz -> rfc3339_adjust_tz_offset tz
-    | None -> (0, true)
+    | Some tz ->
+        rfc3339_adjust_tz_offset tz
+    | None ->
+        (0, true)
   in
   let (y, m, d), ((hh, ss, mm), _tz_offset_s) =
     Ptime.to_date_time ~tz_offset_s ptime

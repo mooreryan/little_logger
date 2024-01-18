@@ -61,7 +61,7 @@
 
       let () =
         Logger.info (fun () ->
-            sprintf "I can use %s strings like %s" "format" "this")
+            sprintf "I can use %s strings like %s" "format" "this" )
     ]}
 
     Using the thunk accepting functions let you avoid potentially expensive
@@ -80,18 +80,24 @@
 
     The default level is [Warning]. Here we lower it to [Debug].
 
-    {[ let () = Logger.set_log_level Logger.Level.Debug ]}
+    {[
+      let () = Logger.set_log_level Logger.Level.Debug
+    ]}
 
     {2 Changing the printer}
 
     The default printer is [prerr_endline], which prints to [stderr]. We can
     change to printing to [stdout] like this.
 
-    {[ let () = Logger.set_printer print_endline ]}
+    {[
+      let () = Logger.set_printer print_endline
+    ]}
 
     If you're using the [Async] library, just change to an async printer.
 
-    {[ let () = Logger.set_printer Async.prerr_endline ]}
+    {[
+      let () = Logger.set_printer Async.prerr_endline
+    ]}
 
     {3 Writing directly to a file}
 
@@ -149,11 +155,11 @@ end
 
 (** {2 Type aliases} *)
 
-type printer = string -> unit
 (** Type alias for printer functions *)
+type printer = string -> unit
 
-type message = unit -> string
 (** Type alias for message thunks *)
+type message = unit -> string
 
 (** {2 Getters and setters} *)
 
