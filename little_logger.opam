@@ -12,14 +12,12 @@ depends: [
   "dune" {>= "2.8"}
   "ocaml" {>= "4.08.0"}
   "ptime"
-  "async" {with-test}
+  "async" {>= "v0.16" & with-test}
   "bisect_ppx" {with-test}
-  "core" {>= "v0.12" & with-test}
-  "ppx_inline_test" {with-test}
-  "ppx_expect" {with-test}
-  "ppx_sexp_conv" {with-test}
-  "ppx_jane" {with-test}
-  "re2" {with-test}
+  "core" {>= "v0.16" & with-test}
+  "ppx_inline_test" {>= "v0.16" & with-test}
+  "ppx_expect" {>= "v0.16" & with-test}
+  "re2" {>= "v0.16" & with-test}
   "odoc" {with-doc}
 ]
 build: [

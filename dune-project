@@ -22,14 +22,24 @@
    (>= "4.08.0"))
   ptime
   ;; Test deps
-  (async :with-test)
+  (async
+   (and
+    (>= "v0.16")
+    :with-test))
   (bisect_ppx :with-test)
   (core
    (and
-    (>= "v0.12")
+    (>= "v0.16")
     :with-test))
-  (ppx_inline_test :with-test)
-  (ppx_expect :with-test)
-  (ppx_sexp_conv :with-test)
-  (ppx_jane :with-test)
-  (re2 :with-test)))
+  (ppx_inline_test
+   (and
+    (>= "v0.16")
+    :with-test))
+  (ppx_expect
+   (and
+    (>= "v0.16")
+    :with-test))
+  (re2
+   (and
+    (>= "v0.16")
+    :with-test))))
