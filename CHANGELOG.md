@@ -1,6 +1,11 @@
 ## Unreleased
 
-NA
+## 0.3.0 (2024-01-18)
+
+* Drop unnecessary test dependencies.
+* Remove benchmarks from repository.
+* Use `>= v0.16` for Jane Street packages in the test library.
+  * Note: if you want to run the tests, this will impose a minimum OCaml version of `4.14`.
 
 ## 0.2.0 (2021-10-30)
 
