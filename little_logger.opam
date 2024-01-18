@@ -20,9 +20,6 @@ depends: [
   "ppx_sexp_conv" {with-test}
   "ppx_jane" {with-test}
   "re2" {with-test}
-  "core_bench" {>= "v0.12" & dev}
-  "easy_logging" {dev}
-  "dolog" {dev}
   "odoc" {with-doc}
 ]
 build: [
