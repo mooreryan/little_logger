@@ -11,24 +11,22 @@ let redact out =
   @@ Re2.replace_exn ~f:(fun _m -> "PID") pid_re out
 
 let log_all () =
-  let msg () = sprintf "hi %s" "ryan" in
-  Logger.trace msg;
-  Logger.debug msg;
-  Logger.info msg;
-  Logger.warning msg;
-  Logger.error msg;
-  Logger.fatal msg;
-  Logger.unknown msg
+  Logger.trace (fun () -> sprintf "hi ryan (%s)" "trace");
+  Logger.debug (fun () -> sprintf "hi ryan (%s)" "debug");
+  Logger.info (fun () -> sprintf "hi ryan (%s)" "info");
+  Logger.warning (fun () -> sprintf "hi ryan (%s)" "warning");
+  Logger.error (fun () -> sprintf "hi ryan (%s)" "error");
+  Logger.fatal (fun () -> sprintf "hi ryan (%s)" "fatal");
+  Logger.unknown (fun () -> sprintf "hi ryan (%s)" "unknown")
 
 let log_all_string () =
-  let msg = "hi ryan" in
-  Logger.strace msg;
-  Logger.sdebug msg;
-  Logger.sinfo msg;
-  Logger.swarning msg;
-  Logger.serror msg;
-  Logger.sfatal msg;
-  Logger.sunknown msg
+  Logger.strace "hi ryan (trace)";
+  Logger.sdebug "hi ryan (debug)";
+  Logger.sinfo "hi ryan (info)";
+  Logger.swarning "hi ryan (warning)";
+  Logger.serror "hi ryan (error)";
+  Logger.sfatal "hi ryan (fatal)";
+  Logger.sunknown "hi ryan (unknown)"
 
 (* Level of string *)
 
@@ -98,13 +96,13 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    T, [DATE TIME PID] TRACE -- hi ryan
-    D, [DATE TIME PID] DEBUG -- hi ryan
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    T, [DATE TIME PID] TRACE -- hi ryan (trace)
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Debug;
@@ -114,12 +112,12 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    D, [DATE TIME PID] DEBUG -- hi ryan
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Info;
@@ -129,11 +127,11 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Warning;
@@ -143,10 +141,10 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Error;
@@ -156,9 +154,9 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Fatal;
@@ -168,8 +166,8 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Unknown;
@@ -178,7 +176,7 @@ let%expect_test _ =
   let out = [%expect.output] in
   print_endline @@ redact out;
   [%expect {|
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Silent;
@@ -198,13 +196,13 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    T, [DATE TIME PID] TRACE -- hi ryan
-    D, [DATE TIME PID] DEBUG -- hi ryan
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    T, [DATE TIME PID] TRACE -- hi ryan (trace)
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Debug;
@@ -214,12 +212,12 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    D, [DATE TIME PID] DEBUG -- hi ryan
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Info;
@@ -229,11 +227,11 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Warning;
@@ -243,10 +241,10 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Error;
@@ -256,9 +254,9 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Fatal;
@@ -268,8 +266,8 @@ let%expect_test _ =
   print_endline @@ redact out;
   [%expect
     {|
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Unknown;
@@ -278,7 +276,7 @@ let%expect_test _ =
   let out = [%expect.output] in
   print_endline @@ redact out;
   [%expect {|
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
 
 let%expect_test _ =
   Logger.set_log_level Logger.Level.Silent;
@@ -302,10 +300,61 @@ let%expect_test _ =
   print_endline @@ redact @@ In_channel.read_all fname;
   [%expect
     {|
-    T, [DATE TIME PID] TRACE -- hi ryan
-    D, [DATE TIME PID] DEBUG -- hi ryan
-    I, [DATE TIME PID] INFO -- hi ryan
-    W, [DATE TIME PID] WARN -- hi ryan
-    E, [DATE TIME PID] ERROR -- hi ryan
-    F, [DATE TIME PID] FATAL -- hi ryan
-    U, [DATE TIME PID] UNKNOWN -- hi ryan |}]
+    T, [DATE TIME PID] TRACE -- hi ryan (trace)
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
+
+let%expect_test _ =
+  let f1 = "hi.txt" in
+  let f2 = "apple.txt" in
+  let oc1 = Out_channel.create f1 in
+  let oc2 = Out_channel.create f2 in
+  let printer msg =
+    print_endline msg;
+    let msg = msg ^ "\n" in
+    Out_channel.output_string oc1 msg;
+    Out_channel.flush oc1;
+    Out_channel.output_string oc2 msg;
+    Out_channel.flush oc2
+  in
+  Logger.set_log_level Logger.Level.Trace;
+  Logger.set_printer printer;
+  log_all_string ();
+
+  let out = [%expect.output] in
+  print_endline @@ redact out;
+  [%expect
+    {|
+    T, [DATE TIME PID] TRACE -- hi ryan (trace)
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}];
+
+  print_endline @@ redact @@ In_channel.read_all f1;
+  [%expect
+    {|
+    T, [DATE TIME PID] TRACE -- hi ryan (trace)
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}];
+
+  print_endline @@ redact @@ In_channel.read_all f2;
+  [%expect
+    {|
+    T, [DATE TIME PID] TRACE -- hi ryan (trace)
+    D, [DATE TIME PID] DEBUG -- hi ryan (debug)
+    I, [DATE TIME PID] INFO -- hi ryan (info)
+    W, [DATE TIME PID] WARN -- hi ryan (warning)
+    E, [DATE TIME PID] ERROR -- hi ryan (error)
+    F, [DATE TIME PID] FATAL -- hi ryan (fatal)
+    U, [DATE TIME PID] UNKNOWN -- hi ryan (unknown) |}]
